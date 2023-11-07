@@ -69,9 +69,14 @@ func (h *Unifi) updateHosts(ctx context.Context) error {
 		newMap[host.Name] = host.Addr
 	}
 
+	// lock mutex before update hostMap and metrics
 	h.mu.Lock()
 	h.hostMap = newMap
-	defer h.mu.Unlock()
+
+	// update metrics for Prometheus
+	unifiHostsEntries.WithLabelValues().Set(float64(len(h.hostMap)))
+	unifiHostsReloadTime.Set(float64(time.Now().UnixNano() / 1e9))
+	h.mu.Unlock()
 
 	return nil
 }

@@ -50,12 +50,7 @@ func (c *Client) GetSites(ctx context.Context) ([]*unifi.Site, error) {
 	return sites, nil
 }
 
-func (c *Client) GetHosts(ctx context.Context) ([]*Host, error) {
-	sites, err := c.GetSites(ctx)
-	if err != nil {
-		return nil, fmt.Errorf("failed to get Sites: %w", err)
-	}
-
+func (c *Client) GetHosts(ctx context.Context, sites []*unifi.Site) ([]*Host, error) {
 	clients, err := c.Client.GetClients(sites)
 	if err != nil {
 		return nil, fmt.Errorf("failed to get Clients: %w", err)

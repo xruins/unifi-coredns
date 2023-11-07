@@ -10,6 +10,15 @@ import (
 	"testing"
 )
 
+var sites = []*unifi.Site{
+	{
+		ID:         "abcdef0123456789abcdef01",
+		Name:       "default",
+		SiteName:   "Default (default)",
+		SourceName: "https://unifi",
+	},
+}
+
 func TestClient_GetSites(t *testing.T) {
 	ctx := context.Background()
 	c := &test.MockClient{}
@@ -21,14 +30,7 @@ func TestClient_GetSites(t *testing.T) {
 		t.Fatalf("failed to get Sites: %s", err)
 	}
 
-	want := []*unifi.Site{
-		{
-			ID:         "abcdef0123456789abcdef01",
-			Name:       "default",
-			SiteName:   "Default (default)",
-			SourceName: "https://unifi",
-		},
-	}
+	want := sites
 	diff := cmp.Diff(got, want, cmpopts.IgnoreUnexported(unifi.Site{}))
 	if diff != "" {
 		t.Errorf("GetSites() mismatch (-want, +got): %s", diff)
@@ -39,7 +41,7 @@ func TestClient_GetHosts(t *testing.T) {
 	ctx := context.Background()
 	c := &test.MockClient{}
 	client := &Client{Client: c}
-	got, err := client.GetHosts(ctx)
+	got, err := client.GetHosts(ctx, sites)
 	if err != nil {
 		t.Fatalf("failed to get Sites: %s", err)
 	}

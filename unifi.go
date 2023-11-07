@@ -3,7 +3,10 @@ package unifi
 import (
 	"context"
 	"fmt"
+	"github.com/coredns/coredns/plugin/pkg/fall"
+	unpoller "github.com/unpoller/unifi"
 	"github.com/xruins/unifi-coredns/pkg/unifi"
+
 	"net"
 	"sync"
 	"time"
@@ -17,6 +20,7 @@ import (
 type options struct {
 	aaaa          bool
 	reload        time.Duration
+	sites         []string
 	ttl           uint32
 	user          string
 	pass          string
@@ -35,7 +39,26 @@ type Unifi struct {
 }
 
 func (h *Unifi) updateHosts(ctx context.Context) error {
-	hosts, err := h.unifiClient.GetHosts(ctx)
+	ss, err := h.unifiClient.GetSites(ctx)
+	if err != nil {
+		return fmt.Errorf("failed to get Sites: %w", err)
+	}
+
+	// filter sites by options.sites
+	var sites []*unpoller.Site
+	if len(h.options.sites) > 0 {
+		for _, s := range ss {
+			for _, os := range h.options.sites {
+				if s.Name == os {
+					sites = append(sites, s)
+					break
+				}
+			}
+		}
+	}
+
+	// get hosts and make host to ip map
+	hosts, err := h.unifiClient.GetHosts(ctx, sites)
 	if err != nil {
 		return fmt.Errorf("failed to get Unifi: %w", err)
 	}
@@ -61,6 +84,7 @@ func (h *Unifi) ServeDNS(ctx context.Context, w dns.ResponseWriter, r *dns.Msg) 
 
 	switch state.QType() {
 	case dns.TypeA:
+		// handle A queries
 		h.mu.RLock()
 		v, ok := h.hostMap[qname]
 		h.mu.RUnlock()
@@ -69,6 +93,7 @@ func (h *Unifi) ServeDNS(ctx context.Context, w dns.ResponseWriter, r *dns.Msg) 
 		}
 		answers = a(qname, h.options.ttl, []net.IP{*v})
 	case dns.TypeAAAA:
+		// handle AAAA queries only if options.aaaa is true
 		if !h.options.aaaa {
 			return plugin.NextOrFailure(h.Name(), h.Next, ctx, w, r)
 		}

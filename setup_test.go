@@ -40,12 +40,14 @@ unifi https://unifi unifiuser password {
     aaaa
     reload 1s
     ttl 60
+    sites site1 site2
     casesensitive
 }`,
 			wantOptions: options{
 				aaaa:          true,
 				reload:        1 * time.Second,
 				ttl:           60,
+				sites:         []string{"site1", "site2"},
 				caseSensitive: true,
 				url:           "https://unifi",
 				user:          "unifiuser",

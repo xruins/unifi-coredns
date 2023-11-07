@@ -132,6 +132,12 @@ func hostsParse(c *caddy.Controller) (*Unifi, error) {
 				h.options.aaaa = true
 			case "casesensitive":
 				h.options.caseSensitive = true
+			case "sites":
+				remaining := c.RemainingArgs()
+				if len(remaining) == 0 {
+					return h, c.Errf("sites needs at least one site")
+				}
+				h.options.sites = remaining
 			default:
 				return h, c.Errf("unknown property '%s'", c.Val())
 			}

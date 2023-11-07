@@ -25,6 +25,7 @@ type options struct {
 	user          string
 	pass          string
 	url           string
+	fall          fall.F
 	caseSensitive bool
 }
 
@@ -109,9 +110,12 @@ func (h *Unifi) ServeDNS(ctx context.Context, w dns.ResponseWriter, r *dns.Msg) 
 		return plugin.NextOrFailure(h.Name(), h.Next, ctx, w, r)
 	}
 
-	// Only on NXDOMAIN we will fallthrough.
+	// if no answers, return failure unless fallthrough is enabled
 	if len(answers) == 0 {
-		return plugin.NextOrFailure(h.Name(), h.Next, ctx, w, r)
+		if h.options.fall.Through(qname) {
+			return plugin.NextOrFailure(h.Name(), h.Next, ctx, w, r)
+		}
+		return dns.RcodeServerFailure, nil
 	}
 
 	m := new(dns.Msg)

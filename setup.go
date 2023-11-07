@@ -102,6 +102,8 @@ func hostsParse(c *caddy.Controller) (*Unifi, error) {
 
 		for c.NextBlock() {
 			switch c.Val() {
+			case "fallthrough":
+				h.options.fall.SetZonesFromArgs(c.RemainingArgs())
 			case "ttl":
 				remaining := c.RemainingArgs()
 				if len(remaining) < 1 {

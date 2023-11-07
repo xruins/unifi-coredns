@@ -3,6 +3,7 @@ package unifi
 import (
 	"context"
 	"github.com/coredns/caddy"
+	"github.com/coredns/coredns/plugin/pkg/fall"
 	"github.com/miekg/dns"
 	"testing"
 	"time"
@@ -27,6 +28,8 @@ func (h *nopPlugin) ServeDNS(_ context.Context, _ dns.ResponseWriter, _ *dns.Msg
 }
 
 func TestHostParse(t *testing.T) {
+	f := fall.F{}
+	f.SetZonesFromArgs([]string{"example.com", "example.org"})
 	tests := []struct {
 		description string
 		input       string
@@ -42,6 +45,7 @@ unifi https://unifi unifiuser password {
     ttl 60
     sites site1 site2
     casesensitive
+    fallthrough example.com example.org
 }`,
 			wantOptions: options{
 				aaaa:          true,
@@ -49,6 +53,7 @@ unifi https://unifi unifiuser password {
 				ttl:           60,
 				sites:         []string{"site1", "site2"},
 				caseSensitive: true,
+				fall:          f,
 				url:           "https://unifi",
 				user:          "unifiuser",
 				pass:          "password",

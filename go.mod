@@ -5,7 +5,7 @@ go 1.21
 require (
 	github.com/coredns/caddy/v2 v2.1.1
 	github.com/coredns/coredns v1.11.1
-	github.com/google/go-cmp v0.5.9
+	github.com/google/go-cmp v0.6.0
 	github.com/miekg/dns v1.1.57
 	github.com/prometheus/client_golang v1.16.0
 	github.com/unpoller/unifi v0.3.15

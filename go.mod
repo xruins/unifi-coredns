@@ -7,7 +7,7 @@ toolchain go1.24.0
 require (
 	github.com/coredns/caddy v1.1.2-0.20241029205200-8de985351a98
 	github.com/coredns/coredns v1.12.0
-	github.com/google/go-cmp v0.6.0
+	github.com/google/go-cmp v0.7.0
 	github.com/miekg/dns v1.1.63
 	github.com/prometheus/client_golang v1.20.5
 	github.com/unpoller/unifi v0.4.3

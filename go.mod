@@ -5,7 +5,7 @@ go 1.22.7
 toolchain go1.24.0
 
 require (
-	github.com/coredns/caddy v1.1.2-0.20241029205200-8de985351a98
+	github.com/coredns/caddy v1.1.4
 	github.com/coredns/coredns v1.12.0
 	github.com/google/go-cmp v0.6.0
 	github.com/miekg/dns v1.1.63

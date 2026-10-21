@@ -1,20 +1,18 @@
 module github.com/xruins/unifi-coredns
 
-go 1.22.7
-
-toolchain go1.24.0
+go 1.26.0
 
 require (
-	github.com/coredns/caddy v1.1.2-0.20241029205200-8de985351a98
-	github.com/coredns/coredns v1.12.0
-	github.com/google/go-cmp v0.6.0
-	github.com/miekg/dns v1.1.63
-	github.com/prometheus/client_golang v1.20.5
+	github.com/coredns/caddy v1.1.4
+	github.com/coredns/coredns v1.15.0
+	github.com/google/go-cmp v0.7.0
+	github.com/miekg/dns v1.1.73
+	github.com/prometheus/client_golang v1.24.1
 	github.com/unpoller/unifi v0.4.3
 )
 
 require (
-	github.com/apparentlymart/go-cidr v1.1.0 // indirect
+	github.com/apparentlymart/go-cidr v1.1.1 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/brianvoe/gofakeit/v6 v6.28.0 // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
@@ -24,25 +22,28 @@ require (
 	github.com/golang/protobuf v1.5.4 // indirect
 	github.com/google/pprof v0.0.0-20240525223248-4bfdf5a9a2af // indirect
 	github.com/grpc-ecosystem/grpc-opentracing v0.0.0-20180507213350-8e809c8a8645 // indirect
+	github.com/hashicorp/golang-lru/v2 v2.0.7 // indirect
 	github.com/matttproud/golang_protobuf_extensions v1.0.4 // indirect
 	github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822 // indirect
 	github.com/onsi/ginkgo/v2 v2.19.0 // indirect
 	github.com/opentracing/opentracing-go v1.2.0 // indirect
-	github.com/prometheus/client_model v0.6.1 // indirect
-	github.com/prometheus/common v0.60.1 // indirect
-	github.com/prometheus/procfs v0.15.1 // indirect
+	github.com/pires/go-proxyproto v0.15.0 // indirect
+	github.com/prometheus/client_model v0.6.3 // indirect
+	github.com/prometheus/common v0.72.0 // indirect
+	github.com/prometheus/procfs v0.21.1 // indirect
+	github.com/quic-go/qpack v0.6.0 // indirect
 	github.com/quic-go/qtls-go1-20 v0.4.1 // indirect
-	github.com/quic-go/quic-go v0.48.1 // indirect
-	go.uber.org/mock v0.4.0 // indirect
-	golang.org/x/crypto v0.29.0 // indirect
-	golang.org/x/exp v0.0.0-20240506185415-9bf2ced13842 // indirect
-	golang.org/x/mod v0.18.0 // indirect
-	golang.org/x/net v0.31.0 // indirect
-	golang.org/x/sync v0.9.0 // indirect
-	golang.org/x/sys v0.27.0 // indirect
-	golang.org/x/text v0.20.0 // indirect
-	golang.org/x/tools v0.22.0 // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20241104194629-dd2ea8efbc28 // indirect
-	google.golang.org/grpc v1.68.0 // indirect
-	google.golang.org/protobuf v1.35.2 // indirect
+	github.com/quic-go/quic-go v0.64.1 // indirect
+	go.uber.org/mock v0.6.0 // indirect
+	golang.org/x/crypto v0.57.0 // indirect
+	golang.org/x/exp v0.0.0-20260529124908-c761662dc8c9 // indirect
+	golang.org/x/mod v0.41.0 // indirect
+	golang.org/x/net v0.60.0 // indirect
+	golang.org/x/sync v0.23.0 // indirect
+	golang.org/x/sys v0.49.0 // indirect
+	golang.org/x/text v0.42.0 // indirect
+	golang.org/x/tools v0.49.0 // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20260928230214-8a89bd6388cc // indirect
+	google.golang.org/grpc v1.84.0 // indirect
+	google.golang.org/protobuf v1.36.12 // indirect
 )
